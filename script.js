@@ -44,6 +44,9 @@ const createPokemonCard = (pokemon) => {
   const poke_types = pokemon.types.map((type) => type.type.name);
   const type = main_types.find((type) => poke_types.indexOf(type) > -1);
 
+  const color = colors[type];
+  pokemonCard.style.backgroundColor = color;
+
   const pokemonInnerHTml = `
     <div class="img-container">
     <img src="https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${pokemon.id}.svg" alt=""/>
