@@ -19,6 +19,8 @@ const colors = {
   normal: "#F5F5F5",
 };
 
+const main_types = Object.keys(colors);
+
 const fetchPokemons = async () => {
   for (let i = 1; i <= pokemon_count; i++) {
     await getPokemon(i);
@@ -32,21 +34,24 @@ const getPokemon = async (id) => {
   createPokemonCard(data);
 };
 
-const createPokemonCard = () => {
+const createPokemonCard = (pokemon) => {
   const pokemonCard = document.createElement("div");
   pokemonCard.classList.add("pokemon");
 
+  const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
+  const id = pokemon.id.toString().padStart(3, "0");
+
+  const poke_types = pokemon.types.map((type) => type.type.name);
+  const type = main_types.find((type) => poke_types.indexOf(type) > -1);
+
   const pokemonInnerHTml = `
     <div class="img-container">
-    <img
-      src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png"
-      alt="poke-image"
-    />
+    <img src="https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${pokemon.id}.svg" alt=""/>
   </div>
   <div class="info">
-    <span class="number">#001</span>
-    <div class="name">Bulbasaur</div>
-    <div class="type">Type: <span>Grass</span></div>
+    <span class="number">#${id}</span>
+    <div class="name">${name}</div>
+    <div class="type">Type: <span>${type}</span></div>
   </div>
     `;
 
